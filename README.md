@@ -1,2 +1,2 @@
 # mProfit
-Magi all in one calculator
+im too lazy to finish this repo rn sorry
