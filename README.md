@@ -1,4 +1,4 @@
-# mProfit Magi - Magi all in one Calculator
+# mProfit - Magi all in one Calculator
 **This is a Magi (XMG) mining and staking (mPoW/mPoS) calculator.**
 
 ---
