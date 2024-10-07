@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XMG Calculator</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #6d9eeb;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .calculator {
+            background-color: #a4c2f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        .network-stats {
+            background-color: #a4c2f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 1.1em;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-group-first {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group-first label {
+            margin-bottom: 5px;
+            font-size: 1.05em;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .first-input {
+            background-color: #f0f6fc;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            padding: 10px 18px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .output-group {
+            margin-top: 10px;
+        }
+
+        .output-group label {
+            display: inline-block;
+            width: 180px;
+        }
+
+        .output-group input[type="text"] {
+            width: 150px;
+            background-color: #c9daf8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+
+        .network-stats .output-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .network-stats .output-group label {
+            width: auto;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="calculator" id="mining-calculator">
+            <h2>Mining Calculator (mPoW)</h2>
+            <div class="form-group-first">
+                <label for="hashrate">Enter your hashrate [kH/s]:</label>
+                <div class="form-group">
+                    <input type="text" class="first-input" id="hashrate">
+                    <button onclick="calculateMining()">Calculate</button>
+                </div>
+            </div>
+
+            <div class="output-group">
+                <label>Profit per hour:</label>
+                <input type="text" id="profit-hour-mining" readonly>
+            </div>
+            <div class="output-group">
+                <label>Profit per day:</label>
+                <input type="text" id="profit-day-mining" readonly>
+            </div>
+            <div class="output-group">
+                <label>Profit per week:</label>
+                <input type="text" id="profit-week-mining" readonly>
+            </div>
+            <div class="output-group">
+                <label>Profit per month:</label>
+                <input type="text" id="profit-month-mining" readonly>
+            </div>
+            <div class="output-group">
+                <label>Profit per year:</label>
+                <input type="text" id="profit-year-mining" readonly>
+            </div>
+        </div>
+
+        <div class="calculator" id="staking-calculator">
+            <h2>Staking Calculator (mPoS)</h2>
+            <div class="form-group-first">
+                <label for="balance">Enter your balance [XMG]:</label>
+                <div class="form-group">
+                    <input type="text" class="first-input" id="balance">
+                    <button onclick="calculateStaking()">Calculate</button>
+                </div>
+            </div>
+
+            <div class="output-group">
+                <label>Profit per hour:</label>
+                <input type="text" id="profit-hour-staking" readonly>
+            </div>
+            <div class="output-group">
+                <label>Profit per day:</label>
+                <input type="text" id="profit-day-staking" readonly>
+            </div>
+            <div class="output-group">
+                <label>Profit per week:</label>
+                <input type="text" id="profit-week-staking" readonly>
+            </div>
+            <div class="output-group">
+                <label>Profit per month:</label>
+                <input type="text" id="profit-month-staking" readonly>
+            </div>
+            <div class="output-group">
+                <label>Profit per year:</label>
+                <input type="text" id="profit-year-staking" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="network-stats">
+        <h2>Network Statistics</h2>
+        <div class="output-group">
+            <label>Mining difficulty:</label>
+            <input type="text" id="mining-difficulty" readonly>
+        </div>
+        <div class="output-group">
+            <label>Block value:</label>
+            <input type="text" id="block-value" readonly>  
+        </div>
+        <div class="output-group">
+            <label>Network hashrate:</label>
+            <input type="text" id="network-hashrate" readonly>
+        </div>
+        <div class="output-group">
+            <label>Staking difficulty:</label>
+            <input type="text" id="staking-difficulty" readonly>
+        </div>
+        <div class="output-group">
+            <label>Staking interest:</label>
+            <input type="text" id="staking-interest" readonly>
+        </div>
+        <div class="output-group">
+            <label>Network staking weight:</label>
+            <input type="text" id="network-staking-weight" readonly>
+        </div>
+    </div>
+
+    <script>
+        function calculateMining() {
+            const hashrate = document.getElementById('hashrate').value;
+            fetch('https://mp.magizap.com:443/calculate/mining', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                mode: 'cors',
+                body: JSON.stringify({ hashrate: hashrate })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('profit-hour-mining').value = data.h_m;
+                document.getElementById('profit-day-mining').value = data.d_m;
+                document.getElementById('profit-week-mining').value = data.w_m;
+                document.getElementById('profit-month-mining').value = data.m_m;
+                document.getElementById('profit-year-mining').value = data.y_m;
+                document.getElementById('mining-difficulty').value = data.m_a;
+                document.getElementById('block-value').value = data.m_b;
+                document.getElementById('network-hashrate').value = data.m_c;
+                document.getElementById('staking-difficulty').value = data.s_a;
+                document.getElementById('staking-interest').value = data.s_b;
+                document.getElementById('network-staking-weight').value = data.s_c;
+            });
+        }
+
+        function calculateStaking() {
+            const balance = document.getElementById('balance').value;
+            fetch('https://mp.magizap.com:443/calculate/staking', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                mode: 'cors',
+                body: JSON.stringify({ balance: balance })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('profit-hour-staking').value = data.h_s;
+                document.getElementById('profit-day-staking').value = data.d_s;
+                document.getElementById('profit-week-staking').value = data.w_s;
+                document.getElementById('profit-month-staking').value = data.m_s;
+                document.getElementById('profit-year-staking').value = data.y_s;
+                document.getElementById('mining-difficulty').value = data.m_a;
+                document.getElementById('block-value').value = data.m_b;
+                document.getElementById('network-hashrate').value = data.m_c;
+                document.getElementById('staking-difficulty').value = data.s_a;
+                document.getElementById('staking-interest').value = data.s_b;
+                document.getElementById('network-staking-weight').value = data.s_c;
+            });
+        }
+    </script>
+</body>
+</html>
