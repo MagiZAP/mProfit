@@ -53,6 +53,6 @@ Feel free to use `https://mp.magizap.com:443` as a server for your calculator.
 
 ---
 
-Made by [MagiZAP](https://www.magizap.com) - XMG Exchange, Faucet operator and Blockchain sync provider.
+Made by [MagiZAP](https://www.magizap.com) - XMG Multi-Tool Website
 
 XMG donation address: `976Q8kRwiRGcMsKgoHVAgAagCXMpE2NsZ1`
